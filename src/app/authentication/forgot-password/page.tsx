@@ -3,19 +3,17 @@ import Link from "next/link";
 import { Grid, Box, Card, Stack, Typography, Button, TextField } from "@mui/material";
 // components
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
-import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
-import AuthLogin from "../auth/AuthLogin";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2'
 import { setAlert } from "@/app/GlobalRedux/Features/Alert/alertSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { ValidateEmail } from "@/app/services/emailValidation";
 import { LoginRegistrationAPI } from "@/app/services/API";
-import { setUserValue } from "@/app/services/UserService";
-import { useRouter } from "next/navigation";
+import { useRouter,useSearchParams } from "next/navigation";
 import LoadingButton from "@mui/lab/LoadingButton";
+import jwt_decode from "jwt-decode";
 
 const ForgotPassword = () => {
+  const paramString = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
@@ -23,27 +21,20 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  
 
-
-  const sendTokenToExtension = (token: string) => {
-    console.log("running sendTokenToExtension()")
-    chrome.runtime.sendMessage(
-      "piejpplbpdbcpoajgopmnebbakbjlpkf", // Extension ID
-      { action: "storeToken", token: "sdfjksdjfkSAJKDJsakjdkSAJDKsjakdj" },
-      (response) => {
-        console.log(response)
-        if (response && response.success) {
-          console.log("Token stored in extension's local storage.");
-        } else {
-          console.error("Failed to store token in extension.");
-        }
-      }
-    );
-  };
   useEffect(() => {
-    if (email.length > 1)
-      setIsEmailValid((ValidateEmail(email)))
-
+    if (email.length > 1){
+      if(ValidateEmail(email)){
+         setIsEmailValid(true)
+         setDisable(false)
+      }else{
+        setIsEmailValid(false)
+        setDisable(true)
+      }
+     
+    }
+    
 
   }, [email])
 
@@ -60,24 +51,22 @@ const ForgotPassword = () => {
   const submit = () => {
     if ((email && email.length > 1)) {
 
-      if (password && password.length < 7)
-        dispatch(setAlert({ title: "Error", icon: 'error', text: "Password must be at least 6 characters long." }))
-      else {
-        setLoading(true)
-        LoginRegistrationAPI.login({ email, password }).then((res) => {
-          console.log(res)
-          if (res.status == 200) {
-            setLoading(false)
-            sendTokenToExtension(res.data.token);
-            localStorage.setItem("seo-pilot-token", res.data.token);
-            setUserValue(res.data.token)
-            router.push('/')
+      if(isEmailValid){
+        setLoading(true);
+        setDisable(true)
+        LoginRegistrationAPI.sendForgotPasswordEmail({email:email}).then(response=>{
+          if(response.status==201){
+            dispatch(setAlert({title:"Sent", icon:'success', text:"Please Check your email."}))
+          }else {
+            dispatch(setAlert({title:"Error", icon:'error', text:"Error occured"}))
           }
-        }).catch((error) => {
-          setLoading(true)
-          dispatch(setAlert({ title: "Error", icon: 'error', text: 'Unable to login' }))
+          setLoading(false);
+          setDisable(false)
+        }).catch(e=>{
+          dispatch(setAlert({title:"Error", icon:'error', text:e.message}))
+          setLoading(false);
+          setDisable(false)
         })
-
       }
     }
   }
@@ -131,6 +120,15 @@ const ForgotPassword = () => {
 
               <>
                 <Stack>
+                <Typography
+                      variant="h3"
+                      textAlign="center"
+                      color="textSecondary"
+                      mb={2}
+                      sx={{ color: "#5A5A5A", fontWeight: "bold" }}
+                    >
+                      Forgot Password
+                    </Typography>
                   <Box>
                     <Typography
                       variant="subtitle1"
@@ -151,9 +149,9 @@ const ForgotPassword = () => {
                     size="large"
                     fullWidth
                     type="submit"
-                    style={{ color: !isEmailValid ? "#595959" : "white", marginTop: "30px" }}
+                    style={{ color: (!isEmailValid && disable) ? "#595959" : "white", marginTop: "30px" }}
                     onClick={() => submit()}
-                    disabled={!isEmailValid}
+                    disabled={!isEmailValid && disable}
                     loading={loading}
                     loadingPosition="end"
 

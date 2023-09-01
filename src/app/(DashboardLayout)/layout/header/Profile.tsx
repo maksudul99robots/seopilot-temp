@@ -24,8 +24,22 @@ const Profile = () => {
   };
 
   const logout=()=>{
-    localStorage.removeItem("token");
-    router.push("/authentication/login")
+    localStorage.removeItem("seo-pilot-token");
+    router.push("/authentication/login");
+
+    chrome.runtime.sendMessage(
+      "piejpplbpdbcpoajgopmnebbakbjlpkf", // Extension ID
+      { action: "removeToken" },
+      (response) => {
+        // console.log(response)
+        if (response && response.success) {
+          console.log("Token stored in extension's local storage.",response);
+        } else {
+          console.error("Failed to store token in extension.");
+        }
+      }
+    );
+
   }
 
   return (
@@ -44,7 +58,7 @@ const Profile = () => {
         onClick={handleClick2}
       >
         <Avatar
-          src="/images/profile/user-1.jpg"
+          src="/images/profile/user-2.jpg"
           alt="image"
           sx={{
             width: 35,
@@ -69,7 +83,7 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon>
             <IconUser width={20} />
           </ListItemIcon>
@@ -86,7 +100,7 @@ const Profile = () => {
             <IconListCheck width={20} />
           </ListItemIcon>
           <ListItemText>My Tasks</ListItemText>
-        </MenuItem>
+        </MenuItem> */}
         <Box mt={1} py={1} px={2}>
           <Button
             variant="outlined"

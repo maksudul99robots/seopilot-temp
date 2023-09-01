@@ -12,7 +12,7 @@ import SweetAlert from "./(DashboardLayout)/components/alert/SweetAlert";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
-  const publicRoutes = ['/authentication/login', '/authentication/register','/authentication/forgot-password', '/authentication/token','/authentication/reset-password'];
+  const publicRoutes = ['/authentication/login', '/authentication/register','/authentication/forgot-password', '/token','/reset-password'];
   const isPublicRoute = publicRoutes.includes(usePathname());
 
 
@@ -31,9 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   const isAuthenticated = () => {
 
-    if (localStorage?.getItem("token"))
+    if (localStorage?.getItem("seo-pilot-token"))
       {
-        if(localStorage?.getItem("token") != '')
+        if(localStorage?.getItem("seo-pilot-token") != '')
           return true;
         return false;
       }

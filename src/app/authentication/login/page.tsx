@@ -43,11 +43,11 @@ const Login2 = () => {
     console.log("running sendTokenToExtension()")
     chrome.runtime.sendMessage(
       "piejpplbpdbcpoajgopmnebbakbjlpkf", // Extension ID
-      { action: "storeToken", token:"sdfjksdjfkSAJKDJsakjdkSAJDKsjakdj" },
+      { action: "storeToken", token:token },
       (response) => {
-        console.log(response)
+        // console.log(response)
         if (response && response.success) {
-          console.log("Token stored in extension's local storage.");
+          console.log("Token stored in extension's local storage.",response);
         } else {
           console.error("Failed to store token in extension.");
         }
@@ -83,14 +83,15 @@ const Login2 = () => {
           LoginRegistrationAPI.login({email, password}).then((res)=>{
             console.log(res)
             if(res.status == 200){
+              console.log("res.data.token:", res.data.accessToken)
               setLoading(false)
-              sendTokenToExtension(res.data.token);
-              localStorage.setItem("seo-pilot-token", res.data.token);
-              setUserValue(res.data.token)
+              sendTokenToExtension(res.data.accessToken);
+              localStorage.setItem("seo-pilot-token", res.data.accessToken);
+              setUserValue(res.data.accessToken)
               router.push('/')
             }
           }).catch((error)=>{
-            setLoading(true)
+            setLoading(false)
             dispatch(setAlert({title:"Error", icon:'error', text:'Unable to login'}))
           })
 

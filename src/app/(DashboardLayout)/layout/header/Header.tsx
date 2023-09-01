@@ -63,9 +63,9 @@ const Header = ({toggleMobileSidebar}: ItemType) => {
         </IconButton>
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
-          <Button variant="contained" color="primary" disableElevation target="_blank" style={{color:"#fff",fontWeight:"bold"}} href="https://adminmart.com/product/modernize-next-js-admin-dashboard">
+          {/* <Button variant="contained" color="primary" disableElevation target="_blank" style={{color:"#fff",fontWeight:"bold"}} href="https://adminmart.com/product/modernize-next-js-admin-dashboard">
             Upgrade to Pro
-          </Button>
+          </Button> */}
           <Profile />
         </Stack>
       </ToolbarStyled>

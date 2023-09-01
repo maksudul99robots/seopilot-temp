@@ -25,6 +25,12 @@ export const LoginRegistrationAPI = {
   async login(data: any, url = "/login", source = undefined) {
     return await axios.post(`${API_ROOT}${url}`, data, source);
   },
+  async sendForgotPasswordEmail(data: any, url = "/forgot-password", source = undefined) {
+    return await axios.post(`${API_ROOT}${url}`, data, source);
+  },
+  async resetPassword(data: any, url = "/reset-password", source = undefined) {
+    return await axios.post(`${API_ROOT}${url}`, data, source);
+  },
 
 };
 export const PublicationsApi = {

@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -18,20 +18,88 @@ import Link from "next/link";
 
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
+import { useDispatch } from "react-redux";
+import { useRouter, useSearchParams } from "next/navigation";
+import { LoginRegistrationAPI } from "../services/API";
+import { setAlert } from "../GlobalRedux/Features/Alert/alertSlice";
+import jwt_decode from "jwt-decode";
 
-interface loginType {
-  title?: string;
-  subtitle?: JSX.Element | JSX.Element[];
-  subtext?: JSX.Element | JSX.Element[];
-  submit?: any;
-  setPassword?: any;
-  setEmail?: any;
-  isEmailValid?: boolean;
-  disable?: boolean
-  loading?: boolean
-}
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { ValidateEmail } from "../services/emailValidation";
 
-const AuthSetNewPassword = ({ title, subtitle, subtext, submit, setPassword, setEmail, isEmailValid, disable, loading }: loginType) => {
+
+const ResetPassword = (props: any) => {
+  const paramString = useSearchParams();
+  const [email, setEmail] = useState('');
+  const [param, setParam] = useState(paramString.get('token'));
+  const [password, setPassword] = useState('');
+  const [conPassword, setconPassword] = useState('');
+  const [disable, setDisable] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(() => {
+    if (param) {
+      try {
+        let decoded: any = jwt_decode(param);
+        setEmail(decoded.email)
+      } catch (e) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Invalid Token',
+          icon: 'error',
+          confirmButtonText: 'Close',
+        }).then(res => {
+          router.push('/')
+        })
+
+      }
+
+    }
+
+
+  }, [param])
+  const submit = () => {
+    if ((email && email.length > 1)) {
+
+      if (ValidateEmail(email)) {
+        if(password.length>6){
+          if (password == conPassword) {
+          setDisable(true);
+          setLoading(true);
+          LoginRegistrationAPI.resetPassword({ password: password, email: email }).then(response => {
+            if (response.status == 202) {
+              // dispatch(setAlert({ title: "Success", icon: 'success', text: "Password changed successfully" }))
+              Swal.fire({
+                title: 'success!',
+                text: 'Password changed successfully',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+              }).then(res => {
+                router.push('/authentication/login')
+              })
+            } else {
+              dispatch(setAlert({ title: "Error", icon: 'error', text: "Error occured" }))
+            }
+            setDisable(false);
+            setLoading(false);
+          }).catch(e => {
+            dispatch(setAlert({ title: "Error", icon: 'error', text: "Error occured" }));
+            setDisable(false);
+            setLoading(false);
+          })
+        }else{
+          dispatch(setAlert({ title: "Error", icon: 'error', text: "Password should match." }));
+        }
+        }else{
+          dispatch(setAlert({ title: "Error", icon: 'error', text: "Password should be longer than 6." }));
+        }
+        
+
+      }
+    }
+  }
+
   return (
 
 
@@ -82,20 +150,21 @@ const AuthSetNewPassword = ({ title, subtitle, subtext, submit, setPassword, set
             >
 
               <>
-               
-                  {/* <Typography fontWeight="700" variant="h2" mb={1} display="flex" justifyContent="center">
+
+                {/* <Typography fontWeight="700" variant="h2" mb={1} display="flex" justifyContent="center">
                     Reset Password
                   </Typography> */}
                 <Typography
-                  variant="h5"
+                  variant="h3"
                   textAlign="center"
                   color="textSecondary"
-                  mb={1}
+                  mb={2}
+                  sx={{ color: "#5A5A5A", fontWeight: "bold" }}
                 >
                   Reset Password
                 </Typography>
 
-                
+
 
                 <Stack>
                   <Box mt="25px">
@@ -128,7 +197,7 @@ const AuthSetNewPassword = ({ title, subtitle, subtext, submit, setPassword, set
 
                     </Box>
 
-                    <TextField type="password" variant="outlined" fullWidth onChange={e => { setPassword(e.target.value) }} />
+                    <TextField type="password" variant="outlined" fullWidth onChange={e => { setconPassword(e.target.value) }} />
                   </Box>
                 </Stack>
                 <Box>
@@ -138,7 +207,7 @@ const AuthSetNewPassword = ({ title, subtitle, subtext, submit, setPassword, set
                     size="large"
                     fullWidth
                     type="submit"
-                    style={{ color: disable ? "#595959" : "white", marginTop:"30px" }}
+                    style={{ color: disable ? "#595959" : "white", marginTop: "30px" }}
                     onClick={() => submit()}
                     disabled={disable}
                     loading={loading}
@@ -165,4 +234,4 @@ const AuthSetNewPassword = ({ title, subtitle, subtext, submit, setPassword, set
 
 
 
-export default AuthSetNewPassword;
+export default ResetPassword;
