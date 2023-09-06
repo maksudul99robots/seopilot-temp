@@ -12,7 +12,7 @@ import SweetAlert from "./(DashboardLayout)/components/alert/SweetAlert";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
-  const publicRoutes = ['/authentication/login', '/authentication/register','/authentication/forgot-password', '/token','/reset-password'];
+  const publicRoutes = ['/authentication/login', '/authentication/register','/authentication/forgot-password', '/token','/reset-password', '/verify-email'];
   const isPublicRoute = publicRoutes.includes(usePathname());
 
 

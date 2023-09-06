@@ -19,7 +19,7 @@ if (accessToken != null) {
 }
 
 export const LoginRegistrationAPI = {
-  async register(data: any, url = "/register", source = undefined) {
+  async register(data: any, url = "/create-user", source = undefined) {
     return await axios.post(`${API_ROOT}${url}`, data, source);
   },
   async login(data: any, url = "/login", source = undefined) {
@@ -29,6 +29,9 @@ export const LoginRegistrationAPI = {
     return await axios.post(`${API_ROOT}${url}`, data, source);
   },
   async resetPassword(data: any, url = "/reset-password", source = undefined) {
+    return await axios.post(`${API_ROOT}${url}`, data, source);
+  },
+  async checkVerification(data: any, url = "/check-verification", source = undefined) {
     return await axios.post(`${API_ROOT}${url}`, data, source);
   },
 

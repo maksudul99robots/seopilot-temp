@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 const Login2 = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const [disable, setDisable] = useState(true);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Login2 = () => {
   const sendTokenToExtension = (token:string) => {
     console.log("running sendTokenToExtension()")
     chrome.runtime.sendMessage(
-      "piejpplbpdbcpoajgopmnebbakbjlpkf", // Extension ID
+      "phddnlfmlkkjomdccfjjfkhnbmmcfocb", // Extension ID
       { action: "storeToken", token:token },
       (response) => {
         // console.log(response)
@@ -81,9 +81,9 @@ const Login2 = () => {
         else{
           setLoading(true)
           LoginRegistrationAPI.login({email, password}).then((res)=>{
-            console.log(res)
+            // console.log(res)
             if(res.status == 200){
-              console.log("res.data.token:", res.data.accessToken)
+              // console.log("res.data.token:", res.data.accessToken)
               setLoading(false)
               sendTokenToExtension(res.data.accessToken);
               localStorage.setItem("seo-pilot-token", res.data.accessToken);
