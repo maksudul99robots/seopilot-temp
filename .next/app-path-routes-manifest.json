@@ -1,16 +1,16 @@
 {
   "/favicon.ico/route": "/favicon.ico",
-  "/reset-password/page": "/reset-password",
   "/verify-email/page": "/verify-email",
-  "/(DashboardLayout)/page": "/",
-  "/authentication/forgot-password/page": "/authentication/forgot-password",
+  "/reset-password/page": "/reset-password",
   "/authentication/register/page": "/authentication/register",
-  "/authentication/login/page": "/authentication/login",
+  "/authentication/forgot-password/page": "/authentication/forgot-password",
+  "/(DashboardLayout)/page": "/",
+  "/(DashboardLayout)/sample-page/page": "/sample-page",
+  "/(DashboardLayout)/test/page": "/test",
   "/(DashboardLayout)/icons/page": "/icons",
   "/(DashboardLayout)/publications/page": "/publications",
   "/(DashboardLayout)/search/page": "/search",
-  "/(DashboardLayout)/sample-page/page": "/sample-page",
-  "/(DashboardLayout)/test/page": "/test",
   "/(DashboardLayout)/utilities/shadow/page": "/utilities/shadow",
-  "/(DashboardLayout)/utilities/typography/page": "/utilities/typography"
+  "/(DashboardLayout)/utilities/typography/page": "/utilities/typography",
+  "/authentication/login/page": "/authentication/login"
 }

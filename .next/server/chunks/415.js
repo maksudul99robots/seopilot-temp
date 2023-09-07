@@ -15,7 +15,7 @@ exports.modules = {
 let header = null;
 let accessToken = null;
 if (false) {}
-const API_ROOT = "http://localhost:8500/api";
+const API_ROOT = "https://dev.seopilot.io/backend_api";
 // console.log("accessToken:", accessToken);
 if (accessToken != null) {
     header = {
