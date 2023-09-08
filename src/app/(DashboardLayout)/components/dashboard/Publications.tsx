@@ -100,7 +100,7 @@ const Publications = () => {
 
     useEffect(()=>{
         PublicationsApi.getPublications().then((res)=>{
-            console.log(res);
+            // console.log(res);
             setPublications(res.publications)
         }).catch((error)=>{
             dispatch(setAlert({title:"Error", icon:'error', text:'Unable to login'}))

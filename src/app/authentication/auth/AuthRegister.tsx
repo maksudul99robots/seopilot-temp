@@ -43,7 +43,7 @@ const AuthRegister = ({ title, subtitle, subtext, submit, setFirstname, setLastn
                     fontWeight={600} component="label" htmlFor='password' mb="5px" mt="25px" >Confirm Password</Typography>
                 <TextField id="password" variant="outlined" fullWidth type={"password"} onChange={e => setConfirmPassword(e.target.value)} />
             </Stack>
-            <LoadingButton color="primary" variant="contained" size="large" style={{ color: "white" }} fullWidth onClick={() => submit()}
+            <LoadingButton color="primary" variant="contained" size="large" style={{ color: disable ? "#595959" : "white" }} fullWidth onClick={() => submit()}
                 disabled={disable}
                 loading={loading}>
                 Sign Up

@@ -11,6 +11,7 @@ import { LoginRegistrationAPI } from "@/app/services/API";
 import { useRouter,useSearchParams } from "next/navigation";
 import LoadingButton from "@mui/lab/LoadingButton";
 import jwt_decode from "jwt-decode";
+import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 
 const ForgotPassword = () => {
   const paramString = useSearchParams();
@@ -89,8 +90,8 @@ const ForgotPassword = () => {
         }}
       >
 
-        <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "20vh" }}>
-          {/* <Logo /> */}
+        <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "8vh" }}>
+          <Logo />
         </Box>
 
 

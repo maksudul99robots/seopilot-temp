@@ -68,6 +68,22 @@ module.exports = require("next/dist/server/future/helpers/interception-routes.js
 
 /***/ }),
 
+/***/ 53918:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-context.js");
+
+/***/ }),
+
+/***/ 45732:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-mode.js");
+
+/***/ }),
+
 /***/ 3280:
 /***/ ((module) => {
 
@@ -76,11 +92,51 @@ module.exports = require("next/dist/shared/lib/app-router-context.js");
 
 /***/ }),
 
+/***/ 92796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/head-manager-context.js");
+
+/***/ }),
+
 /***/ 69274:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/hooks-client-context.js");
+
+/***/ }),
+
+/***/ 64486:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-blur-svg.js");
+
+/***/ }),
+
+/***/ 50744:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config-context.js");
+
+/***/ }),
+
+/***/ 35843:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config.js");
+
+/***/ }),
+
+/***/ 99552:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-loader");
 
 /***/ }),
 
@@ -164,11 +220,27 @@ module.exports = require("next/dist/shared/lib/server-inserted-html.js");
 
 /***/ }),
 
+/***/ 82470:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/side-effect.js");
+
+/***/ }),
+
 /***/ 59232:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/utils.js");
+
+/***/ }),
+
+/***/ 40618:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils/warn-once.js");
 
 /***/ }),
 
@@ -551,7 +623,7 @@ const AuthRegister = ({ title , subtitle , subtext , submit , setFirstname , set
                         variant: "contained",
                         size: "large",
                         style: {
-                            color: "white"
+                            color: disable ? "#595959" : "white"
                         },
                         fullWidth: true,
                         onClick: ()=>submit(),
@@ -576,8 +648,11 @@ var emailValidation = __webpack_require__(98247);
 var API = __webpack_require__(82415);
 // EXTERNAL MODULE: ./src/app/GlobalRedux/Features/Alert/alertSlice.ts
 var alertSlice = __webpack_require__(68205);
+// EXTERNAL MODULE: ./src/app/(DashboardLayout)/layout/shared/logo/Logo.tsx
+var Logo = __webpack_require__(19216);
 ;// CONCATENATED MODULE: ./src/app/authentication/register/page.tsx
 /* __next_internal_client_entry_do_not_use__ default auto */ 
+
 
 
 
@@ -649,7 +724,8 @@ const Register2 = ()=>{
         }
     }, [
         email,
-        password
+        password,
+        confirmPassword
     ]);
     (0,react_.useEffect)(()=>{
         if (email.length > 1) setIsEmailValid((0,emailValidation/* ValidateEmail */.J)(email));
@@ -680,8 +756,9 @@ const Register2 = ()=>{
                     alignItems: "center",
                     justifyContent: "center",
                     sx: {
-                        paddingTop: "20vh"
-                    }
+                        paddingTop: "8vh"
+                    },
+                    children: /*#__PURE__*/ jsx_runtime_.jsx(Logo/* default */.Z, {})
                 }),
                 /*#__PURE__*/ jsx_runtime_.jsx(node.Grid, {
                     container: true,
@@ -709,10 +786,10 @@ const Register2 = ()=>{
                             },
                             children: /*#__PURE__*/ jsx_runtime_.jsx(auth_AuthRegister, {
                                 subtext: /*#__PURE__*/ jsx_runtime_.jsx(node.Typography, {
-                                    variant: "h5",
+                                    variant: "h3",
                                     textAlign: "center",
                                     color: "textSecondary",
-                                    mb: 1,
+                                    mb: 3,
                                     children: "Create an account"
                                 }),
                                 subtitle: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(node.Stack, {
@@ -794,7 +871,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [859,706,85,107,248,62,433,621,620,415,338], () => (__webpack_exec__(2146)));
+var __webpack_exports__ = __webpack_require__.X(0, [859,706,85,107,248,121,62,433,620,415,934], () => (__webpack_exec__(2146)));
 module.exports = __webpack_exports__;
 
 })();

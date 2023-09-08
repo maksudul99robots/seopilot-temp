@@ -84,12 +84,12 @@ const AuthLogin = ({ title, subtitle, subtext, submit, setPassword, setEmail, is
         alignItems="center"
         my={2}
       >
-        <FormGroup>
+        {/* <FormGroup>
           <FormControlLabel
             control={<Checkbox defaultChecked />}
             label="Remeber this Device"
           />
-        </FormGroup>
+        </FormGroup> */}
 
       </Stack>
     </Stack>

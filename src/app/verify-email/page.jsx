@@ -28,7 +28,7 @@ const VerifyEmail = () => {
                 })
             }
         }).catch(err => {
-            console.log(err);
+            // console.log(err);
             Swal.fire({
                 title: 'Error!',
                 text: 'Registration failed',

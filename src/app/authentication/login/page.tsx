@@ -22,7 +22,7 @@ const Login2 = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-  let extensionId = "piejpplbpdbcpoajgopmnebbakbjlpkf";
+  let extensionId = "phddnlfmlkkjomdccfjjfkhnbmmcfocb";
   // useEffect(() => {
   //   setInterval(()=>{
   //     chrome?.runtime?.sendMessage({ action: "checkExtension", extensionId: extensionId }, (response) => {
@@ -40,14 +40,14 @@ const Login2 = () => {
   // }, []);
 
   const sendTokenToExtension = (token:string) => {
-    console.log("running sendTokenToExtension()")
+    // console.log("running sendTokenToExtension()")
     chrome.runtime.sendMessage(
-      "phddnlfmlkkjomdccfjjfkhnbmmcfocb", // Extension ID
+      extensionId, // Extension ID
       { action: "storeToken", token:token },
       (response) => {
         // console.log(response)
         if (response && response.success) {
-          console.log("Token stored in extension's local storage.",response);
+          // console.log("Token stored in extension's local storage.",response);
         } else {
           console.error("Failed to store token in extension.");
         }
@@ -91,8 +91,9 @@ const Login2 = () => {
               router.push('/')
             }
           }).catch((error)=>{
+            // console.log(error)
             setLoading(false)
-            dispatch(setAlert({title:"Error", icon:'error', text:'Unable to login'}))
+            dispatch(setAlert({title:"Error", icon:'error', text:error.response.data}))
           })
 
         }
@@ -117,8 +118,8 @@ const Login2 = () => {
         }}
       >
         
-          <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "20vh" }}>
-            {/* <Logo /> */}
+          <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "8vh" }}>
+            <Logo />
           </Box>
       
 
@@ -162,7 +163,7 @@ const Login2 = () => {
                       mb={2}
                       sx={{ color: "#5A5A5A", fontWeight: "bold" }}
                     >
-                      Sign In to SEO-Pilot
+                      Sign In to SEOPilot
                     </Typography>
                     <Typography
                       variant="h6"
@@ -174,7 +175,7 @@ const Login2 = () => {
                       New Here?&nbsp;
                       <Link href="/authentication/register" style={{ textDecoration: "none" }}>
 
-                        <span style={{ color: "#009EF7", fontWeight: "bold", }}>Create an Account to SEO-Pilot</span>
+                        <span style={{ color: "#009EF7", fontWeight: "bold", }}>Create an Account to SEOPilot</span>
 
                       </Link>
 

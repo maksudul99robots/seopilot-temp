@@ -68,6 +68,22 @@ module.exports = require("next/dist/server/future/helpers/interception-routes.js
 
 /***/ }),
 
+/***/ 53918:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-context.js");
+
+/***/ }),
+
+/***/ 45732:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-mode.js");
+
+/***/ }),
+
 /***/ 3280:
 /***/ ((module) => {
 
@@ -76,11 +92,51 @@ module.exports = require("next/dist/shared/lib/app-router-context.js");
 
 /***/ }),
 
+/***/ 92796:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/head-manager-context.js");
+
+/***/ }),
+
 /***/ 69274:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/hooks-client-context.js");
+
+/***/ }),
+
+/***/ 64486:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-blur-svg.js");
+
+/***/ }),
+
+/***/ 50744:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config-context.js");
+
+/***/ }),
+
+/***/ 35843:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config.js");
+
+/***/ }),
+
+/***/ 99552:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-loader");
 
 /***/ }),
 
@@ -164,11 +220,27 @@ module.exports = require("next/dist/shared/lib/server-inserted-html.js");
 
 /***/ }),
 
+/***/ 82470:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/side-effect.js");
+
+/***/ }),
+
 /***/ 59232:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("next/dist/shared/lib/utils.js");
+
+/***/ }),
+
+/***/ 40618:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils/warn-once.js");
 
 /***/ }),
 
@@ -423,6 +495,8 @@ var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
 var node = __webpack_require__(64085);
 // EXTERNAL MODULE: ./src/app/(DashboardLayout)/components/container/PageContainer.tsx
 var PageContainer = __webpack_require__(68046);
+// EXTERNAL MODULE: ./src/app/(DashboardLayout)/layout/shared/logo/Logo.tsx
+var Logo = __webpack_require__(19216);
 // EXTERNAL MODULE: external "next/dist/compiled/react"
 var react_ = __webpack_require__(18038);
 // EXTERNAL MODULE: ./node_modules/@mui/lab/node/index.js
@@ -505,15 +579,7 @@ const AuthLogin = ({ title , subtitle , subtext , submit , setPassword , setEmai
                         justifyContent: "space-between",
                         direction: "row",
                         alignItems: "center",
-                        my: 2,
-                        children: /*#__PURE__*/ jsx_runtime_.jsx(node.FormGroup, {
-                            children: /*#__PURE__*/ jsx_runtime_.jsx(node.FormControlLabel, {
-                                control: /*#__PURE__*/ jsx_runtime_.jsx(node.Checkbox, {
-                                    defaultChecked: true
-                                }),
-                                label: "Remeber this Device"
-                            })
-                        })
+                        my: 2
                     })
                 ]
             }),
@@ -571,6 +637,7 @@ var navigation = __webpack_require__(59483);
 
 
 
+
 const Login2 = ()=>{
     const [email, setEmail] = (0,react_.useState)("");
     const [password, setPassword] = (0,react_.useState)("");
@@ -579,7 +646,7 @@ const Login2 = ()=>{
     const [loading, setLoading] = (0,react_.useState)(false);
     const dispatch = (0,lib.useDispatch)();
     const router = (0,navigation.useRouter)();
-    let extensionId = "piejpplbpdbcpoajgopmnebbakbjlpkf";
+    let extensionId = "phddnlfmlkkjomdccfjjfkhnbmmcfocb";
     // useEffect(() => {
     //   setInterval(()=>{
     //     chrome?.runtime?.sendMessage({ action: "checkExtension", extensionId: extensionId }, (response) => {
@@ -594,14 +661,14 @@ const Login2 = ()=>{
     //   }, 1000);
     // }, []);
     const sendTokenToExtension = (token)=>{
-        console.log("running sendTokenToExtension()");
-        chrome.runtime.sendMessage("phddnlfmlkkjomdccfjjfkhnbmmcfocb", {
+        // console.log("running sendTokenToExtension()")
+        chrome.runtime.sendMessage(extensionId, {
             action: "storeToken",
             token: token
         }, (response)=>{
             // console.log(response)
             if (response && response.success) {
-                console.log("Token stored in extension's local storage.", response);
+            // console.log("Token stored in extension's local storage.",response);
             } else {
                 console.error("Failed to store token in extension.");
             }
@@ -646,11 +713,12 @@ const Login2 = ()=>{
                         router.push("/");
                     }
                 }).catch((error)=>{
+                    // console.log(error)
                     setLoading(false);
                     dispatch((0,alertSlice/* setAlert */.br)({
                         title: "Error",
                         icon: "error",
-                        text: "Unable to login"
+                        text: error.response.data
                     }));
                 });
             }
@@ -679,8 +747,9 @@ const Login2 = ()=>{
                     alignItems: "center",
                     justifyContent: "center",
                     sx: {
-                        paddingTop: "20vh"
-                    }
+                        paddingTop: "8vh"
+                    },
+                    children: /*#__PURE__*/ jsx_runtime_.jsx(Logo/* default */.Z, {})
                 }),
                 /*#__PURE__*/ jsx_runtime_.jsx(node.Grid, {
                     container: true,
@@ -724,7 +793,7 @@ const Login2 = ()=>{
                                                 color: "#5A5A5A",
                                                 fontWeight: "bold"
                                             },
-                                            children: "Sign In to SEO-Pilot"
+                                            children: "Sign In to SEOPilot"
                                         }),
                                         /*#__PURE__*/ (0,jsx_runtime_.jsxs)(node.Typography, {
                                             variant: "h6",
@@ -747,7 +816,7 @@ const Login2 = ()=>{
                                                             color: "#009EF7",
                                                             fontWeight: "bold"
                                                         },
-                                                        children: "Create an Account to SEO-Pilot"
+                                                        children: "Create an Account to SEOPilot"
                                                     })
                                                 })
                                             ]
@@ -824,7 +893,7 @@ const __default__ = proxy.default;
 var __webpack_require__ = require("../../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [859,706,85,107,248,62,433,621,620,415,338], () => (__webpack_exec__(2222)));
+var __webpack_exports__ = __webpack_require__.X(0, [859,706,85,107,248,121,62,433,620,415,934], () => (__webpack_exec__(2222)));
 module.exports = __webpack_exports__;
 
 })();

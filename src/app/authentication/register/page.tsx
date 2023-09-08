@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { ValidateEmail } from "@/app/services/emailValidation";
 import { LoginRegistrationAPI } from "@/app/services/API";
 import { setAlert } from "@/app/GlobalRedux/Features/Alert/alertSlice";
+import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 
 const Register2 = () => {
   const [email, setEmail] = useState('');
@@ -49,7 +50,7 @@ const Register2 = () => {
     }else{
       setDisable(true)
     }
-  },[email,password])
+  },[email,password,confirmPassword])
 
   useEffect(() => {
     if (email.length > 1)
@@ -78,8 +79,8 @@ const Register2 = () => {
           },
         }}
       >
-        <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "20vh" }}>
-          {/* <Logo /> */}
+        <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "8vh" }}>
+          <Logo />
         </Box>
         <Grid
           container
@@ -104,10 +105,10 @@ const Register2 = () => {
               <AuthRegister
                 subtext={
                   <Typography
-                    variant="h5"
+                    variant="h3"
                     textAlign="center"
                     color="textSecondary"
-                    mb={1}
+                    mb={3}
                   >
                     Create an account
                   </Typography>

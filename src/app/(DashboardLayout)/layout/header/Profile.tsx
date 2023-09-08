@@ -28,7 +28,7 @@ const Profile = () => {
     router.push("/authentication/login");
 
     chrome.runtime.sendMessage(
-      "piejpplbpdbcpoajgopmnebbakbjlpkf", // Extension ID
+      "phddnlfmlkkjomdccfjjfkhnbmmcfocb", // Extension ID
       { action: "removeToken" },
       (response) => {
         // console.log(response)

@@ -398,7 +398,7 @@ const VerifyEmail = ()=>{
                 });
             }
         }).catch((err)=>{
-            console.log(err);
+            // console.log(err);
             sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_3___default().fire({
                 title: "Error!",
                 text: "Registration failed",

@@ -47,7 +47,7 @@ const PublicationsApi = {
     async getPublications (url = "/publications") {
         return axios__WEBPACK_IMPORTED_MODULE_0__/* ["default"].get */ .Z.get(`${API_ROOT}${url}`, header).then((response)=>response?.data).catch((error)=>{
             if (error.response) {
-                console.log(error.response);
+                // console.log(error.response)
                 if (error.response.status === 401) {
                     localStorage.removeItem("token");
                     window.location.reload();

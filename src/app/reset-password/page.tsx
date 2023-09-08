@@ -26,6 +26,7 @@ import jwt_decode from "jwt-decode";
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { ValidateEmail } from "../services/emailValidation";
+import Logo from "../(DashboardLayout)/layout/shared/logo/Logo";
 
 
 const ResetPassword = (props: any) => {
@@ -120,8 +121,8 @@ const ResetPassword = (props: any) => {
         }}
       >
 
-        <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "20vh" }}>
-          {/* <Logo /> */}
+        <Box display="flex" alignItems="center" justifyContent="center" sx={{ paddingTop: "8vh" }}>
+          <Logo />
         </Box>
 
 

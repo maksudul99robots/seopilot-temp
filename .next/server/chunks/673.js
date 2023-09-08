@@ -49,7 +49,7 @@ const Profile = ()=>{
     const logout = ()=>{
         localStorage.removeItem("seo-pilot-token");
         router.push("/authentication/login");
-        chrome.runtime.sendMessage("piejpplbpdbcpoajgopmnebbakbjlpkf", {
+        chrome.runtime.sendMessage("phddnlfmlkkjomdccfjjfkhnbmmcfocb", {
             action: "removeToken"
         }, (response)=>{
             // console.log(response)
